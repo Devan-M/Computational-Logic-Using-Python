@@ -106,6 +106,54 @@ def draw_table(data, header):
     print()
   print("-"*106)
 
+def choose_item_to_delete():
+  clear_screen()
+  print("Para deletar um produto, vc deve saber o numero de identificação (ID) do produto!")
+  print("Voce sabe o numero da ID? ")
+  print("1 - Sim")
+  print("2 - Não")
+  resposta = input("Digite sua opção: ")
+  if resposta == '1':
+    id = input("Digite a ID do produto a ser excluído: ")
+    delete_item(filename, id)
+  elif resposta == '2':
+    ver_estoque()
+  else:
+    print("Opção inválida. Tente novamente.")
+    choose_item_to_delete()
+  
+def delete_item(arquivo, id_procurado):
+    # Lê o conteúdo do arquivo CSV
+    with open(arquivo, mode='r', newline='', encoding='utf-8') as file:
+        leitor_csv = csv.reader(file)
+        linhas = list(leitor_csv)
+        
+    # Verifica se o arquivo está vazio
+    if len(linhas) == 0:
+        print("O arquivo está vazio.")
+        return
+    
+    # Encontrar o índice da coluna "ID"
+    cabecalho = linhas[0]
+    if "ID" not in cabecalho:
+        print("A coluna 'ID' não foi encontrada.")
+        return
+    indice_id = cabecalho.index("ID")
+    
+    # Filtra as linhas, excluindo a que tem o ID procurado
+    linhas_filtradas = [linha for linha in linhas if linha[indice_id] != str(id_procurado)]
+    
+    # Verifica se alguma linha foi excluída
+    if len(linhas_filtradas) == len(linhas):
+        print(f"Nenhuma linha com o ID {id_procurado} foi encontrada.")
+        return
+    
+    # Escreve as linhas de volta no arquivo CSV, sobrescrevendo o original
+    with open(arquivo, mode='w', newline='', encoding='utf-8') as file:
+        escritor_csv = csv.writer(file)
+        escritor_csv.writerows(linhas_filtradas)
+    print(f"O Produto com a ID {id_procurado} foi removido com sucesso.")
+
   # Base do sistema : Menu de opçoes para o usuário
 def menu():
   clear_screen()
@@ -128,8 +176,8 @@ def menu():
       #função de atualizar
       create_file()
     elif opcao == '3':
-      #função de visualiza estoque
       create_file()
+      choose_item_to_delete()
     elif opcao == '4':
       create_file()
       ver_estoque()
@@ -138,6 +186,8 @@ def menu():
       clear_screen()
       #print("Saindo do programa...")
       break
+    elif opcao == '6':
+      clear_screen()
     else:
       print("Opção inválida. Tente novamente.")
 
