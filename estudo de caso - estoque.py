@@ -154,6 +154,42 @@ def delete_item(arquivo, id_procurado):
         escritor_csv.writerows(linhas_filtradas)
     print(f"O Produto com a ID {id_procurado} foi removido com sucesso.")
 
+def update_item():
+    clear_screen()
+    product_id = input("Digite o ID do produto a ser atualizado: ")
+    reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
+    data = list(reader)
+    header = data.pop(0)
+    
+    # Procurando o produto pelo ID
+    item_found = False
+    for row in data:
+        if row[0] == product_id:
+            item_found = True
+            print(f"Produto encontrado: {row}")
+            new_name = input(f"Novo nome (deixe vazio para não alterar): ")
+            new_price = input(f"Novo preço (deixe vazio para não alterar): ")
+            new_qty = input(f"Nova quantidade (deixe vazio para não alterar): ")
+            
+            if new_name != "":
+                row[1] = remove_acentos(new_name)
+            if new_price != "":
+                row[2] = re.sub(",", ".", new_price)
+            if new_qty != "":
+                row[3] = new_qty
+
+            # Atualizar os dados no arquivo CSV
+            with open('estoque.csv', mode='w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                writer.writerows(data)
+            print("Produto atualizado com sucesso.")
+            break
+
+    if not item_found:
+        print(f"Produto com ID {product_id} não encontrado.")
+
+
   # Base do sistema : Menu de opçoes para o usuário
 def menu():
   clear_screen()
@@ -173,8 +209,8 @@ def menu():
       add_Item()
       clear_screen()
     elif opcao == '2':
-      #função de atualizar
-      create_file()
+      update_item()  # Chamando a função para atualizar produto
+
     elif opcao == '3':
       create_file()
       choose_item_to_delete()
