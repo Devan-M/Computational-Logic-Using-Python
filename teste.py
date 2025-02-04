@@ -1,36 +1,35 @@
-"""import unicodedata
+import tkinter as tk
 
-def remove_acentos(texto):
-     return unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
+def calcular_quadrado():
+    try:
+        numero = float(entry_numero.get())  # Obtém o valor inserido
+        quadrado = numero ** 2  # Calcula o quadrado do número
+        label_resultado.config(text=f"O quadrado de {numero} é {quadrado}")  # Exibe o resultado
+    except ValueError:
+        label_resultado.config(text="Por favor, insira um número válido.")
 
-text = "este é um texto unicode, com  palavras com Ç cedilha e não...carapicuíba, reticências, ciências.."
+# Criação da janela principal
+root = tk.Tk()
+root.title("Calculadora de Quadrado")
 
-print(remove_acentos(text))
+# Configurações da janela
+root.geometry("300x200")
 
-texto2 = "a seguir, o mesmo texto com função direta: "
-texto2 = unicodedata.normalize('NFKD', texto2).encode('ascii', 'ignore').decode('ascii')
-print(texto2)
+# Rótulo de instrução
+label_instrucao = tk.Label(root, text="Insira um número:")
+label_instrucao.pack(pady=10)
 
+# Campo de entrada para o número
+entry_numero = tk.Entry(root)
+entry_numero.pack(pady=5)
 
+# Botão para calcular o quadrado
+botao_calcular = tk.Button(root, text="Calcular Quadrado", command=calcular_quadrado)
+botao_calcular.pack(pady=10)
 
-import re
+# Rótulo para exibir o resultado
+label_resultado = tk.Label(root, text="")
+label_resultado.pack(pady=10)
 
-# Initialize string
-string = "Welcome To SparkByExamples"
-print("Original string: ", string)
-
-# Using re.sub() method
-# Remove commas from string 
-result = re.sub(",","",string)
-print("After removing commas from a string :",result)
-
-entrada = re.sub(",","",input("Digite a string com virgulas: "))
-print(entrada)"""
-import re
-
-entrada = re.sub(",",".",input("digite o preço com virgulas: "))
-
-print(entrada)
-print(entrada.format)
-entrada = float(entrada)
-print(entrada)
+# Inicia a interface gráfica
+root.mainloop()
