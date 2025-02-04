@@ -189,6 +189,26 @@ def update_item():
     if not item_found:
         print(f"Produto com ID {product_id} não encontrado.")
 
+def validate_price(price):
+    try:
+        price = float(price.replace(",", "."))
+        if price <= 0:
+            raise ValueError
+        return price
+    except ValueError:
+        print("Preço inválido. Insira um número válido.")
+        return None
+
+def validate_quantity(quantity):
+    try:
+        quantity = int(quantity)
+        if quantity < 0:
+            raise ValueError
+        return quantity
+    except ValueError:
+        print("Quantidade inválida. Insira um número inteiro positivo.")
+        return None
+
 
   # Base do sistema : Menu de opçoes para o usuário
 def menu():
