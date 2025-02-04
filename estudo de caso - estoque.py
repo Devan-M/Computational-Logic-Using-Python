@@ -5,20 +5,21 @@ filename = "estoque.csv"
 def remove_acentos(texto):
      return unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
 
-def create_file():
+def create_file(a, b, c, d):
   """ Esta função cria o arquivo com nome definido em filename, 
-  caso ele não exista na mesma pasta do código. Caso o arquivo já exista,
+  caso ele não exista na mesma pasta do código, cria cabeçalho e
+  adiciona linha com os dados digitados. Caso o arquivo já exista (except),
   ele apenas adiciona linhas ao final do mesmo.  
   """
   try:
     with open(filename, 'x', newline='') as file:
         writer = csv.writer(file)
-        field = ["ID", "NOME", "PRECO UNITARIO [R$]", "QTD ESTOQUE"]
+        field = (["ID", "NOME", "PRECO UNITARIO [R$]", "QTD ESTOQUE"], [a, b, c, d])
         writer.writerow(field)
   except:
     with open(filename, 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["idx", "este e, um exemplo de nome", "9.99","502"])
+        writer.writerow([a, b, c, d])
 
 def limpa_tela():
   os.system("cls" if os.name == "nt" else "clear")
@@ -34,7 +35,8 @@ def timer_sair():
 
 def add_Item():
   product_name = input("Digite o nome do produto: ")
-  product_price = float(input("Digite o preço unitário do produto (use ponto para separar os centavos): "))
+  product_name = remove_acentos(product_name)
+  product_price = float(input("Digite o preço unitário do produto: "))
   product_qty = int(input("Digite a quantidade em estoque do produto: "))
   
 # Base do sistema : Menu de opçoes para o usuário
