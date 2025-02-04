@@ -8,10 +8,10 @@ def remove_acentos(texto):
      return unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
 
 def create_file(a = "", b = "", c = "", d = ""):
-  """ Esta função cria o arquivo com nome definido em filename, 
+  """ Esta função cria o arquivo com nome definido em filename,
   caso ele não exista na mesma pasta do código, cria cabeçalho e
   adiciona linha com os dados digitados. Caso o arquivo já exista (except),
-  ele apenas adiciona linhas ao final do mesmo.  
+  ele apenas adiciona linhas ao final do mesmo.
   """
   try:
     with open(filename, 'x', newline='') as file:
@@ -46,8 +46,67 @@ def add_Item():
   product_qty = int(input("Digite a quantidade em estoque do produto: "))
   product_id = generate_id()
   create_file(product_id, product_name, product_price, product_qty)
+
+def generate_id():
+  reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
+  data = []
+  for row in reader:
+    data.append(row)
+  header = data.pop(0)
+  if not data:
+    generated_id = 1
+  else:
+    last_row = data[-1]
+    last_id = int(last_row[0])
+    generated_id = last_id + 1
+  return generated_id
+
+def ver_estoque():
+  reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
+  data = []
+  for row in reader:
+    data.append(row)
+  header = data.pop(0)
+  draw_table(data, header)
+
+def fixed_length(text, length):
+  if len (text) > length:
+    text = text[:length]
+  elif len (text) < length:
+    text = (text + " " * length)[:length]
+  return text
+
+def draw_table(data, header):
+  clear_screen()
+  print("-"*106) 
+  print("#", end=" ")
+  counter = 0
+  for column in header:
+    if counter == 0:
+      print(fixed_length(column, 7), end =" #   ")
+    elif counter == 1:
+      print(fixed_length(column, 40), end =" #   ")
+    else:
+      print(fixed_length(column, 20), end =" #   ")
+    counter = counter + 1 
+  print("")
+  print("-"*106)
   
-# Base do sistema : Menu de opçoes para o usuário
+  for row in data:
+    print("# ", end="")
+    counter = 0
+    for column in row:
+      if counter == 0:
+        print(fixed_length(column, 7), end =" #   ")
+      elif counter == 1:
+        print(fixed_length(column, 40), end =" #   ")
+      else:
+        print(fixed_length(column, 20), end =" #   ")
+      counter = counter + 1
+    print()
+  print("-"*106)
+
+  # Base do sistema : Menu de opçoes para o usuário
 def menu():
   clear_screen()
   while True:
@@ -72,6 +131,7 @@ def menu():
       #função de visualiza estoque
       create_file()
     elif opcao == '4':
+      create_file()
       ver_estoque()
     elif opcao == '5':
       timer_sair()
@@ -82,62 +142,3 @@ def menu():
       print("Opção inválida. Tente novamente.")
 
 menu()
-
-def generate_id():
-  reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
-  data = []
-  for row in reader: 
-    data.append(row) 
-  header = data.pop(0)
-  if not data:
-    generated_id = 1
-  else:
-    last_row = data[-1]
-    last_id = int(last_row[0])
-    generated_id = last_id + 1
-  return generated_id
-
-def ver_estoque():
-  reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
-  data = []
-  for row in reader: 
-    data.append(row) 
-  header = data.pop(0)
-  draw_table(data, header)
-
-def fixed_length(text, length): 
-  if len (text) > length: 
-    text = text[:length] 
-  elif len (text) < length: 
-    text = (text + " " * length)[:length] 
-  return text 
-
-def draw_table(data, header):
-  clear_screen() 
-  print("-"*106) 
-  print("#", end=" ")
-  counter = 0
-  for column in header:
-    if counter == 0:
-      print(fixed_length(column, 7), end =" #   ")
-    elif counter == 1:
-      print(fixed_length(column, 40), end =" #   ")
-    else:
-      print(fixed_length(column, 20), end =" #   ")
-    counter = counter + 1 
-  print("")
-  print("-"*106)
-    
-  for row in data:
-    print("# ", end="")
-    counter = 0
-    for column in row:
-      if counter == 0:
-        print(fixed_length(column, 7), end =" #   ")
-      elif counter == 1:
-        print(fixed_length(column, 40), end =" #   ")
-      else:
-        print(fixed_length(column, 20), end =" #   ")
-      counter = counter + 1
-  print()
-  print("-"*106)
