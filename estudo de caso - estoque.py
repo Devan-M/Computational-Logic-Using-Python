@@ -260,7 +260,7 @@ def menu():
     
     while True:
         print("-"*30)
-        print("MENU")
+        print("MENU - Sistema de Estoque")
         print("-"*30)
         print("1 - Cadastrar Produto")
         print("2 - Atualizar Produto")
@@ -268,7 +268,7 @@ def menu():
         print("4 - Visualizar estoque")
         print("5 - Sair do sistema")
         print("-"*30)
-        opcao = input("Digite sua opção: ")
+        opcao = input("Digite sua opção (1-5): ")
         
         if opcao == '1':
             add_Item()
