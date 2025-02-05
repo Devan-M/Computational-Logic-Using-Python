@@ -8,23 +8,23 @@ def remove_acentos(texto):
      return unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('ascii')
 
 def create_file(a = "", b = "", c = "", d = ""):
-  """ Esta função cria o arquivo com nome definido em filename,
-  caso ele não exista na mesma pasta do código, cria cabeçalho e
-  adiciona linha com os dados digitados. Caso o arquivo já exista (except),
-  ele apenas adiciona linhas ao final do mesmo.
-  """
-  try:
-    with open(filename, 'x', newline='') as file:
-        writer = csv.writer(file)
-        field = (["ID", "NOME", "PRECO UNITARIO [R$]", "QTD ESTOQUE"])
-        writer.writerow(field)
-  except:
-    with open(filename, 'a', newline='') as file:
-        writer = csv.writer(file)
-        if (a == "" or b == "" or c == "" or d == ""):
-          pass
-        else:
-          writer.writerow([a, b, c, d])
+    """ This function creates the file if it does not exist. If the file exists,
+    it appends new data to it. """
+    try:
+        # Try creating a new file with the header
+        with open(filename, 'x', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            field = (["ID", "NOME", "PRECO UNITARIO [R$]", "QTD ESTOQUE"])
+            writer.writerow(field)
+    except FileExistsError:
+        # If file exists, it appends the data
+        with open(filename, 'a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            if a and b and c and d:
+                writer.writerow([a, b, c, d])
+    except OSError as e:
+        print(f"Erro ao acessar o arquivo: {e}")
+
 
 def clear_screen():
   os.system("cls" if os.name == "nt" else "clear")
