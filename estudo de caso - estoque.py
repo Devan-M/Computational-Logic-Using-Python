@@ -39,13 +39,27 @@ def timer_sair():
   #print ("\nFim")
 
 def add_Item():
-  clear_screen()
-  product_name = input("Digite o nome do produto: ")
-  product_name = remove_acentos(product_name)
-  product_price = re.sub(",",".",input("Digite o preço unitário do produto: "))
-  product_qty = int(input("Digite a quantidade em estoque do produto: "))
-  product_id = generate_id()
-  create_file(product_id, product_name, product_price, product_qty)
+    clear_screen()
+    product_name = input("Digite o nome do produto: ")
+    product_name = remove_acentos(product_name)
+    
+    # Validação do preço
+    while True:
+        product_price = input("Digite o preço unitário do produto: ")
+        validated_price = validate_price(product_price)
+        if validated_price:
+            break
+
+    # Validação da quantidade
+    while True:
+        product_qty = input("Digite a quantidade em estoque do produto: ")
+        validated_qty = validate_quantity(product_qty)
+        if validated_qty is not None:
+            break
+
+    product_id = generate_id()
+    create_file(product_id, product_name, validated_price, validated_qty)
+
 
 def generate_id():
   reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
