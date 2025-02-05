@@ -1,2 +1,101 @@
-ID,NOME,PRECO UNITARIO [R$],QTD ESTOQUE
-1,Mouse,105.98,197
+ID,Nome,PRECO UNITARIO [R$],QTD ESTOQUE
+1,Monitor 24'' LED,899.99,150
+2,Teclado mecânico RGB,399.50,250
+3,Mouse optico 16000 DPI,179.8,298
+4,Fone de ouvido Bluetooth,199.00,200
+5,Processador Intel i7,1999.99,100
+6,Placa de vídeo Nvidia RTX 3060,2500.00,50
+7,Memória RAM 16GB DDR4,450.75,180
+8,SSD 512GB,299.90,200
+9,Fonte de alimentação 750W,499.00,120
+10,Placa-mãe ATX ASUS,899.00,80
+11,Caixa de som portátil,169.00,300
+12,Cabo HDMI 2.1,45.90,500
+13,Webcam 1080p,129.99,250
+14,Microfone condensador,199.00,120
+15,Cooler para PC,89.90,180
+16,Mousepad XXL,59.99,250
+17,Controlador de jogos USB,99.90,150
+18,Carregador rápido 65W,129.00,180
+19,Teclado sem fio,299.00,90
+20,Fone de ouvido com microfone,159.00,300
+21,Mouse ergonômico,139.99,200
+22,Kit de limpeza para PC,49.90,400
+23,Cadeira gamer,899.00,50
+24,Teclado mecânico compactado,329.00,150
+25,Roteador Wi-Fi 6,499.00,80
+26,HD Externo 1TB,289.00,300
+27,Adaptador USB-C para HDMI,69.90,250
+28,Carregador de celular 30W,79.90,350
+29,HD 2TB,349.99,150
+30,Switch Gigabit,159.00,120
+31,Placa de captura de vídeo,450.00,100
+32,Power Bank 20000mAh,129.99,400
+33,Carregador sem fio,139.90,250
+34,Estabilizador 1000VA,189.00,200
+35,Notebook Gamer,5500.00,70
+36,Processador AMD Ryzen 5,1499.00,90
+37,Memória RAM 8GB,230.50,180
+38,Smartphone Android,1199.00,150
+39,Laptop ultrafino,2899.00,80
+40,Mouse com fio,59.99,450
+41,Teclado gamer RGB,399.00,100
+42,Alto-falante Bluetooth,149.99,200
+43,Monitor Curvo 27'',1799.00,50
+44,Smartwatch,299.00,300
+45,Suporte para notebook,99.90,350
+46,Placa de vídeo AMD Radeon,2200.00,50
+47,Kit de iluminação para PC,129.90,180
+48,Scanner A4,350.00,60
+49,Impressora laser,799.00,90
+50,Chave de fenda magnética,19.90,500
+51,Organizador de cabos,29.90,450
+52,Câmera de segurança IP,499.00,120
+53,Suporte para celular,39.90,400
+54,Tripé para câmera,129.00,250
+55,HD 500GB,179.90,300
+56,Microfone de lapela,99.00,200
+57,Adaptador Wi-Fi USB,69.90,350
+58,Roteador Mesh,799.00,80
+59,Câmera de ação 4K,799.99,60
+60,Fone de ouvido noise cancelling,349.00,100
+61,Cabo Lightning para iPhone,59.90,400
+62,Smart TV 4K,2299.00,70
+63,Conversor de áudio digital,149.90,250
+64,Hub USB 3.0,79.90,350
+65,Teclado com teclado numérico,299.00,200
+66,Câmera DSLR,2499.00,50
+67,Projetor de vídeo portátil,699.00,100
+68,Monitor 27'' 144Hz,1599.00,90
+69,Placa de som externa,149.00,250
+70,Headset USB,199.00,200
+71,Mouse gaming ergonômico,179.00,120
+72,Teclado mecânico retroiluminado,349.00,100
+73,Tablet Android,699.00,150
+74,Gabinete para PC,350.00,180
+75,Alto-falante 2.1,159.00,250
+76,Adaptador de energia para notebook,129.90,350
+77,Placa de vídeo GTX 1650,1400.00,60
+78,Cabo VGA para HDMI,29.90,450
+79,Switch HDMI,49.99,200
+80,Mouse com iluminação RGB,69.90,400
+81,Notebook de 14'',2499.00,100
+82,Fone de ouvido com cancelamento de ruído,349.00,150
+83,Teclado compacto,199.00,180
+84,Webcam para conferência,149.90,250
+85,Docking station para notebook,499.00,60
+86,Carregador para Power Bank,79.00,350
+87,Mouse ergonômico vertical,149.90,180
+88,Placa de captura 4K,899.00,70
+89,Teclado mecânico com switches vermelhos,349.00,90
+90,Cabo de rede CAT6,29.90,500
+91,Adaptador de energia para celular,49.90,450
+92,Câmera de segurança sem fio,349.00,200
+93,Mouse pad gamer,79.90,250
+94,SSD NVMe 1TB,699.00,120
+95,Placa de vídeo GTX 1050 Ti,999.00,80
+96,Fone de ouvido com fio,79.90,350
+97,Roteador 4G,399.00,150
+98,Teclado sem fio com numpad,299.00,120
+99,Projetor portátil,799.00,50
+100,Mouse óptico sem fio,49.90,500
