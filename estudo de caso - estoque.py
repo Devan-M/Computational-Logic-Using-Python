@@ -196,19 +196,26 @@ def update_item():
             new_price = input(f"Novo preço (deixe vazio para não alterar): ")
             new_qty = input(f"Nova quantidade (deixe vazio para não alterar): ")
             
-            # Validate and update fields if provided
+            # Validate new_name (if not empty, validate that it's a valid string)
             if new_name != "":
-                row[1] = remove_acentos(new_name)
+                new_name = remove_acentos(new_name)  # Clean name
+                row[1] = new_name  # Update the name
+
+            # Validate new_price (if not empty, validate that it's a valid price)
             if new_price != "":
-                # Validate price format
                 new_price = validate_price(new_price)
-                if new_price:
-                    row[2] = new_price
+                if new_price is None:
+                    print("Preço inválido. Não foi possível atualizar o produto.")
+                    return  # Exit without updating product
+                row[2] = new_price  # Update the price
+
+            # Validate new_qty (if not empty, validate that it's a valid quantity)
             if new_qty != "":
-                # Validate quantity format
                 new_qty = validate_quantity(new_qty)
-                if new_qty is not None:
-                    row[3] = new_qty
+                if new_qty is None:
+                    print("Quantidade inválida. Não foi possível atualizar o produto.")
+                    return  # Exit without updating product
+                row[3] = new_qty  # Update the quantity
 
             # Atualizar os dados no arquivo CSV
             with open('estoque.csv', mode='w', newline='', encoding='utf-8') as file:
@@ -220,7 +227,7 @@ def update_item():
 
     if not item_found:
         print(f"Produto com ID {product_id} não encontrado.")
-
+        
 
 def validate_price(price):
     try:
