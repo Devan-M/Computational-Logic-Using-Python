@@ -90,7 +90,7 @@ def generate_id():
     generated_id = last_id + 1
   return generated_id
 
-def ver_estoque():
+def show_stock():
   reader = csv.reader(open('estoque.csv', 'r', encoding="utf-8"))
   data = []
   for row in reader:
@@ -142,7 +142,7 @@ def choose_item_to_delete():
     id = input("Digite a ID do produto a ser excluído: ")
     delete_item(filename, id)
   elif resposta == '2':
-    ver_estoque()
+    show_stock()
   else:
     print("Opção inválida. Tente novamente.")
     choose_item_to_delete()
@@ -284,7 +284,7 @@ def menu():
         elif opcao == '3':
             choose_item_to_delete()
         elif opcao == '4':
-            ver_estoque()
+            show_stock()
         elif opcao == '5':
             timer_sair()
             break
