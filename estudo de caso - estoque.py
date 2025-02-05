@@ -38,19 +38,34 @@ def timer_sair():
     cont = cont + 1
   #print ("\nFim")
 
+def check_duplicate_product(product_name, product_id=None):
+    reader = csv.reader(open(filename, 'r', encoding="utf-8"))
+    data = list(reader)
+    for row in data[1:]:  # Skip header row
+        if row[1].lower() == product_name.lower():  # Compare product names case-insensitively
+            return True  # Duplicate found
+        if product_id and row[0] == product_id:
+            return True  # Duplicate ID found
+    return False
+
 def add_Item():
     clear_screen()
     product_name = input("Digite o nome do produto: ")
     product_name = remove_acentos(product_name)
-    
-    # Validação do preço
+
+    # Check if the product already exists
+    if check_duplicate_product(product_name):
+        print("Produto já existe no estoque.")
+        return
+
+    # Validate the price
     while True:
         product_price = input("Digite o preço unitário do produto: ")
         validated_price = validate_price(product_price)
         if validated_price:
             break
 
-    # Validação da quantidade
+    # Validate the quantity
     while True:
         product_qty = input("Digite a quantidade em estoque do produto: ")
         validated_qty = validate_quantity(product_qty)
