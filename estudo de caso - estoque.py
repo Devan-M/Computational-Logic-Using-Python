@@ -1,6 +1,4 @@
 import time, sys, os, csv, unicodedata, re
-import pandas as pd
-from tabulate import tabulate
 
 #Este será o nome do arquivo CSV gerado.
 filename = "estoque.csv"
@@ -257,47 +255,6 @@ def check_file_exists(filename):
         return False
     return True
 
-def exibir_tabela_com_paginacao(caminho_arquivo, linhas_por_pagina=10):
-    # Carregar o arquivo CSV para um DataFrame
-    df = pd.read_csv(caminho_arquivo)
-
-    total_linhas = len(df)
-    total_paginas = (total_linhas // linhas_por_pagina) + (1 if total_linhas % linhas_por_pagina != 0 else 0)
-
-    pagina_atual = 1
-
-    while True:
-        # Calcular o início e o fim da página
-        inicio = (pagina_atual - 1) * linhas_por_pagina
-        fim = inicio + linhas_por_pagina
-
-        # Obter as linhas da página atual
-        pagina = df.iloc[inicio:fim]
-
-        # Exibir a tabela da página atual
-        print(f"\nPágina {pagina_atual} de {total_paginas}")
-        print(tabulate(pagina, headers='keys', tablefmt='pretty', showindex=False))
-
-        # Opções de navegação
-        print("\nOpções:")
-        print("P - Próxima página")
-        print("A - Página anterior")
-        print("M - Menu principal")
-
-        # Receber a opção do usuário
-        opcao = input("Escolha uma opção: ").strip().lower()
-
-        if opcao == 'p' and pagina_atual < total_paginas:
-            pagina_atual += 1
-        elif opcao == 'a' and pagina_atual > 1:
-            pagina_atual -= 1
-        elif opcao == 'm':
-            menu()
-            break
-        else:
-            print("Opção inválida. Tente novamente.")
-
-
   # Base do sistema : Menu de opçoes para o usuário
 def menu():
     clear_screen()
@@ -326,8 +283,7 @@ def menu():
         elif opcao == '3':
             choose_item_to_delete()
         elif opcao == '4':
-          #na linha abaixo, ajustar "linhas_por_pagina" para um numero que melhor se adeque (para tabelas muito grandes)
-          exibir_tabela_com_paginacao(filename, linhas_por_pagina=30)
+          show_stock()
         elif opcao == '5':
             timer_sair()
             break
