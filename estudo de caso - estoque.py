@@ -84,11 +84,7 @@ def ver_estoque():
   draw_table(data, header)
 
 def fixed_length(text, length):
-  if len (text) > length:
-    text = text[:length]
-  elif len (text) < length:
-    text = (text + " " * length)[:length]
-  return text
+    return text[:length].ljust(length)
 
 def draw_table(data, header):
   clear_screen()
@@ -223,42 +219,46 @@ def validate_quantity(quantity):
         print("Quantidade inválida. Insira um número inteiro positivo.")
         return None
 
+def check_file_exists(filename):
+    if not os.path.exists(filename):
+        print(f"O arquivo {filename} não existe!")
+        return False
+    return True
+
 
   # Base do sistema : Menu de opçoes para o usuário
 def menu():
-  clear_screen()
-  while True:
-    print("-"*30)
-    print("MENU")
-    print("-"*30)
-    print("1 - Cadastrar Produto")
-    print("2 - Atualizar Produto")
-    print("3 - Excluir produto")
-    print("4 - Visualizar estoque")
-    print("5 - Sair do sistema")
-    print("-"*30)
-    opcao = input("Digite sua opção: ")
-    if opcao == '1':
-      # funcao de cadastrar produtos
-      add_Item()
-      clear_screen()
-    elif opcao == '2':
-      update_item()  # Chamando a função para atualizar produto
-
-    elif opcao == '3':
-      create_file()
-      choose_item_to_delete()
-    elif opcao == '4':
-      create_file()
-      ver_estoque()
-    elif opcao == '5':
-      timer_sair()
-      clear_screen()
-      #print("Saindo do programa...")
-      break
-    elif opcao == '6':
-      clear_screen()
-    else:
-      print("Opção inválida. Tente novamente.")
+    clear_screen()
+    
+    # Verificar se o arquivo existe antes de iniciar o menu
+    if not check_file_exists(filename):
+        print(f"O arquivo {filename} não existe. Criando um novo arquivo.")
+        create_file()  # Cria o arquivo vazio com cabeçalho
+    
+    while True:
+        print("-"*30)
+        print("MENU")
+        print("-"*30)
+        print("1 - Cadastrar Produto")
+        print("2 - Atualizar Produto")
+        print("3 - Excluir produto")
+        print("4 - Visualizar estoque")
+        print("5 - Sair do sistema")
+        print("-"*30)
+        opcao = input("Digite sua opção: ")
+        
+        if opcao == '1':
+            add_Item()
+        elif opcao == '2':
+            update_item()  # Atualizar Produto
+        elif opcao == '3':
+            choose_item_to_delete()
+        elif opcao == '4':
+            ver_estoque()
+        elif opcao == '5':
+            timer_sair()
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
 
 menu()
