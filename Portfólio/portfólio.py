@@ -41,6 +41,7 @@ def tela_login_organizador():
     os.system('cls' if os.name == 'nt' else 'clear')  # Limpa a tela para sistemas Windows ou Linux/Mac
     print("\n" * 5)  # Espacos para centralizar
     print("Vc foi redirecionado...")
+    time.sleep(10)
 
 # Função principal que executa o fluxo
 def main():
