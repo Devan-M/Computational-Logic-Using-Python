@@ -1,6 +1,6 @@
 import time, os, csv
 
-# These variable are to store the names of the files that will be used ins this system
+# These variable are to store the names of the files that will be used in this system
 events = "eventos.csv"
 registrations = "registrations.csv"
 
