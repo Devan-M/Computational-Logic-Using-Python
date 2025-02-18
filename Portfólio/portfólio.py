@@ -60,11 +60,6 @@ def escolher_login():
         else:
             print("\nOpção inválida. Por favor, digite 1 ou 2.")
 
-def tela_login_organizador():
-    os.system('cls' if os.name == 'nt' else 'clear')  # Limpa a tela para sistemas Windows ou Linux/Mac
-    print("\n" * 5)  # Espacos para centralizar
-    print("Vc foi redirecionado...")
-
 # Função principal que executa o fluxo
 def main():
     welcome_screen()  # Exibe a tela de boas-vindas
