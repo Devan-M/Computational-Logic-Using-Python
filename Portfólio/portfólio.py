@@ -1,5 +1,7 @@
 import csv
 import os
+import re
+from datetime import datetime
 
 class Evento:
     def __init__(self, nome, data, descricao, vagas_max):
@@ -119,11 +121,26 @@ class SistemaEventos:
         print(f'Evento "{nome}" não encontrado.')
 
 
+# Funções auxiliares
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def validar_data(data_str):
+    """Valida se a data está no formato dd/mm/aaaa"""
+    try:
+        datetime.strptime(data_str, "%d/%m/%Y")
+        return True
+    except ValueError:
+        return False
+
+
 # Funções do sistema
 def menu_organizador():
     sistema = SistemaEventos()
 
     while True:
+        limpar_tela()
         print("\n--- Sistema de Cadastro de Eventos (Organizador) ---")
         print("1. Criar evento")
         print("2. Atualizar evento")
@@ -136,14 +153,20 @@ def menu_organizador():
 
         if opcao == '1':
             nome = input('Nome do evento: ')
-            data = input('Data do evento: ')
+            data = input('Data do evento (dd/mm/aaaa): ')
+            while not validar_data(data):
+                print("Data inválida! Use o formato dd/mm/aaaa.")
+                data = input('Data do evento (dd/mm/aaaa): ')
             descricao = input('Descrição do evento: ')
             vagas_max = int(input('Número máximo de vagas: '))
             sistema.criar_evento(nome, data, descricao, vagas_max)
 
         elif opcao == '2':
             nome = input('Nome do evento a ser atualizado: ')
-            nova_data = input('Nova data do evento (deixe em branco para não alterar): ')
+            nova_data = input('Nova data do evento (dd/mm/aaaa) ou deixe em branco para não alterar: ')
+            if nova_data and not validar_data(nova_data):
+                print("Data inválida! Use o formato dd/mm/aaaa.")
+                continue
             novas_vagas = input('Novo número de vagas (deixe em branco para não alterar): ')
             novas_vagas = int(novas_vagas) if novas_vagas else None
             sistema.atualizar_evento(nome, nova_data if nova_data else None, novas_vagas)
@@ -176,6 +199,7 @@ def menu_aluno():
     sistema = SistemaEventos()
 
     while True:
+        limpar_tela()
         print("\n--- Sistema de Cadastro de Eventos (Aluno) ---")
         print("1. Listar eventos")
         print("2. Inscrever-se em evento")
@@ -200,6 +224,7 @@ def menu_aluno():
 
 def menu():
     while True:
+        limpar_tela()
         print("\n--- Sistema de Cadastro de Eventos ---")
         print("1. Entrar como Organizador")
         print("2. Entrar como Aluno")
