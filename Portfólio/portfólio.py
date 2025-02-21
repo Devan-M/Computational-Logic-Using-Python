@@ -1,4 +1,4 @@
-import csv, os. re
+import csv, os, re
 from datetime import datetime
 
 class Evento:
