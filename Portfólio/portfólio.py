@@ -1,6 +1,4 @@
-import csv
-import os
-import re
+import csv, os. re
 from datetime import datetime
 
 class Evento:
