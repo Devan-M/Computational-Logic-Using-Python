@@ -1,23 +1,26 @@
-import csv, os, re
+import csv, os, re, time
 from datetime import datetime
 
 class Evento:
     def __init__(self, nome, data, descricao, vagas_max):
+        # Inicializa um evento com os parâmetros fornecidos
         self.nome = nome
         self.data = data
         self.descricao = descricao
         self.vagas_max = vagas_max
-        self.vagas_restantes = vagas_max
-        self.inscritos = []
+        self.vagas_restantes = vagas_max  # Inicializa as vagas restantes como o número máximo de vagas
+        self.inscritos = []  # Lista para armazenar os participantes inscritos
 
     def atualizar_evento(self, nova_data=None, novas_vagas=None):
+        # Atualiza a data e/ou número de vagas do evento
         if nova_data:
             self.data = nova_data
         if novas_vagas:
             self.vagas_max = novas_vagas
-            self.vagas_restantes = novas_vagas - len(self.inscritos)
+            self.vagas_restantes = novas_vagas - len(self.inscritos)  # Ajusta as vagas restantes
 
     def inscrever_participante(self, participante):
+        # Inscreve um participante no evento, se houver vagas
         if self.vagas_restantes > 0:
             self.inscritos.append(participante)
             self.vagas_restantes -= 1
@@ -26,6 +29,7 @@ class Evento:
             print(f'Não há vagas disponíveis no evento {self.nome}.')
 
     def mostrar_evento(self):
+        # Exibe as informações do evento
         print(f'Evento: {self.nome}')
         print(f'Data: {self.data}')
         print(f'Descrição: {self.descricao}')
@@ -33,6 +37,7 @@ class Evento:
         print('---')
 
     def visualizar_inscricoes(self):
+        # Exibe a lista de participantes inscritos no evento
         if self.inscritos:
             print(f'Inscritos para o evento "{self.nome}":')
             for inscrito in self.inscritos:
@@ -41,13 +46,14 @@ class Evento:
             print(f'Nenhum participante inscrito para o evento "{self.nome}".')
 
     def excluir_evento(self):
+        # Exclui o evento e exibe uma mensagem
         print(f'O evento "{self.nome}" foi excluído com sucesso!')
 
 
 class SistemaEventos:
     def __init__(self):
-        self.eventos = []
-        self.carregar_dados()
+        self.eventos = []  # Lista de eventos
+        self.carregar_dados()  # Carrega os dados dos eventos a partir de um arquivo CSV
 
     def carregar_dados(self):
         """Carrega os eventos e inscrições a partir de arquivos CSV."""
@@ -59,8 +65,8 @@ class SistemaEventos:
                     nome, data, descricao, vagas_max, inscritos = row
                     evento = Evento(nome, data, descricao, int(vagas_max))
                     if inscritos:
-                        evento.inscritos = inscritos.split(';')
-                        evento.vagas_restantes = int(vagas_max) - len(evento.inscritos)
+                        evento.inscritos = inscritos.split(';')  # Recupera os participantes
+                        evento.vagas_restantes = int(vagas_max) - len(evento.inscritos)  # Atualiza vagas restantes
                     self.eventos.append(evento)
 
     def salvar_dados(self):
@@ -69,23 +75,30 @@ class SistemaEventos:
             writer = csv.writer(file)
             writer.writerow(['Nome', 'Data', 'Descrição', 'Vagas_max', 'Inscritos'])  # Cabeçalho
             for evento in self.eventos:
-                inscritos = ';'.join(evento.inscritos)
+                inscritos = ';'.join(evento.inscritos)  # Lista de inscritos em uma única string
                 writer.writerow([evento.nome, evento.data, evento.descricao, evento.vagas_max, inscritos])
 
     def criar_evento(self, nome, data, descricao, vagas_max):
+        # Cria um novo evento e o adiciona à lista de eventos
         novo_evento = Evento(nome, data, descricao, vagas_max)
         self.eventos.append(novo_evento)
         print(f'O evento "{nome}" foi criado com sucesso!')
-        self.salvar_dados()
+        self.salvar_dados()  # Salva os dados atualizados
 
     def listar_eventos(self):
+    # Exibe todos os eventos cadastrados
         if not self.eventos:
             print('Não há eventos cadastrados.')
+            time.sleep(15)
         else:
             for evento in self.eventos:
                 evento.mostrar_evento()
+    
+        # Solicita ao usuário pressionar qualquer tecla para continuar
+        input("\nPressione qualquer tecla para continuar...")
 
     def atualizar_evento(self, nome, nova_data=None, novas_vagas=None):
+        # Atualiza um evento existente
         for evento in self.eventos:
             if evento.nome == nome:
                 evento.atualizar_evento(nova_data, novas_vagas)
@@ -95,6 +108,7 @@ class SistemaEventos:
         print(f'Evento "{nome}" não encontrado.')
 
     def inscrever_em_evento(self, nome, participante):
+        # Inscreve um participante em um evento
         for evento in self.eventos:
             if evento.nome == nome:
                 evento.inscrever_participante(participante)
@@ -103,6 +117,7 @@ class SistemaEventos:
         print(f'Evento "{nome}" não encontrado.')
 
     def visualizar_inscricoes(self, nome):
+        # Exibe as inscrições de um evento específico
         for evento in self.eventos:
             if evento.nome == nome:
                 evento.visualizar_inscricoes()
@@ -110,6 +125,7 @@ class SistemaEventos:
         print(f'Evento "{nome}" não encontrado.')
 
     def excluir_evento(self, nome):
+        # Exclui um evento da lista
         for evento in self.eventos:
             if evento.nome == nome:
                 self.eventos.remove(evento)
@@ -121,13 +137,14 @@ class SistemaEventos:
 
 # Funções auxiliares
 def limpar_tela():
+    # Limpa a tela do terminal (dependendo do sistema operacional)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def validar_data(data_str):
     """Valida se a data está no formato dd/mm/aaaa"""
     try:
-        datetime.strptime(data_str, "%d/%m/%Y")
+        datetime.strptime(data_str, "%d/%m/%Y")  # Tenta converter a string para uma data
         return True
     except ValueError:
         return False
@@ -143,10 +160,9 @@ def menu_organizador():
         print("1. Criar evento")
         print("2. Atualizar evento")
         print("3. Listar eventos")
-        print("4. Inscrever-se em evento")
-        print("5. Visualizar inscrições")
-        print("6. Excluir evento")
-        print("7. Sair")
+        print("4. Visualizar inscrições")
+        print("5. Excluir evento")
+        print("6. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
@@ -173,19 +189,14 @@ def menu_organizador():
             sistema.listar_eventos()
 
         elif opcao == '4':
-            nome_evento = input('Nome do evento para inscrição: ')
-            participante = input('Nome do participante: ')
-            sistema.inscrever_em_evento(nome_evento, participante)
-
-        elif opcao == '5':
             nome_evento = input('Nome do evento para visualizar as inscrições: ')
             sistema.visualizar_inscricoes(nome_evento)
 
-        elif opcao == '6':
+        elif opcao == '5':
             nome_evento = input('Nome do evento a ser excluído: ')
             sistema.excluir_evento(nome_evento)
 
-        elif opcao == '7':
+        elif opcao == '6':
             print("Saindo do sistema.")
             break
 
@@ -221,6 +232,7 @@ def menu_aluno():
 
 
 def menu():
+    # Função principal do menu que permite ao usuário escolher entre entrar como organizador ou aluno
     while True:
         limpar_tela()
         print("\n--- Sistema de Cadastro de Eventos ---")
@@ -230,10 +242,10 @@ def menu():
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
-            menu_organizador()
+            menu_organizador()  # Entra no menu do organizador
 
         elif opcao == '2':
-            menu_aluno()
+            menu_aluno()  # Entra no menu do aluno
 
         elif opcao == '3':
             print("Saindo do sistema.")
