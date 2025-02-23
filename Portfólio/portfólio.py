@@ -206,7 +206,7 @@ def menu_organizador():
             sistema.excluir_evento(nome_evento)
 
         elif opcao == '6':
-            print("Saindo do menu administrador.")4
+            print("Saindo do menu administrador.")
             time.sleep(5)
             break
 
