@@ -18,6 +18,8 @@ class Evento:
         if novas_vagas:
             self.vagas_max = novas_vagas
             self.vagas_restantes = novas_vagas - len(self.inscritos)  # Ajusta as vagas restantes
+        print(f'O evento "{self.nome}" foi atualizado com sucesso!')
+        time.sleep(5)
 
     def inscrever_participante(self, participante):
         # Inscreve um participante no evento, se houver vagas
@@ -48,6 +50,7 @@ class Evento:
     def excluir_evento(self):
         # Exclui o evento e exibe uma mensagem
         print(f'O evento "{self.nome}" foi excluído com sucesso!')
+        time.sleep(5)
 
 
 class SistemaEventos:
@@ -84,16 +87,19 @@ class SistemaEventos:
         self.eventos.append(novo_evento)
         print(f'O evento "{nome}" foi criado com sucesso!')
         self.salvar_dados()  # Salva os dados atualizados
+        time.sleep(5)
 
     def listar_eventos(self):
-    # Exibe todos os eventos cadastrados
+        # Exibe todos os eventos cadastrados
+        limpar_tela()
         if not self.eventos:
             print('Não há eventos cadastrados.')
-            time.sleep(15)
+            time.sleep(5)
         else:
+            print(' ----EVENTOS---- ')
             for evento in self.eventos:
                 evento.mostrar_evento()
-    
+
         # Solicita ao usuário pressionar qualquer tecla para continuar
         input("\nPressione qualquer tecla para continuar...")
 
@@ -115,12 +121,15 @@ class SistemaEventos:
                 self.salvar_dados()
                 return
         print(f'Evento "{nome}" não encontrado.')
+        time.sleep(5)
 
     def visualizar_inscricoes(self, nome):
         # Exibe as inscrições de um evento específico
         for evento in self.eventos:
             if evento.nome == nome:
                 evento.visualizar_inscricoes()
+                # Solicita ao usuário pressionar qualquer tecla para continuar
+                input("\nPressione qualquer tecla para continuar...")
                 return
         print(f'Evento "{nome}" não encontrado.')
 
@@ -197,7 +206,7 @@ def menu_organizador():
             sistema.excluir_evento(nome_evento)
 
         elif opcao == '6':
-            print("Saindo do sistema.")
+            print("Saindo do menu administrador.")
             break
 
         else:
@@ -224,7 +233,8 @@ def menu_aluno():
             sistema.inscrever_em_evento(nome_evento, participante)
 
         elif opcao == '3':
-            print("Saindo do sistema.")
+            print("Saindo do menu aluno.")
+            time.sleep(5)
             break
 
         else:
@@ -249,6 +259,7 @@ def menu():
 
         elif opcao == '3':
             print("Saindo do sistema.")
+            time.sleep(5)
             break
 
         else:
